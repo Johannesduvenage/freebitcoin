@@ -16,7 +16,7 @@ var x = '<div id="botonera" class="large-12 small-12 columns center">' + //se in
 		//se crea un nuevo objeto de tipo entrada de texto, llamado patrones
 		'<div class="large-12 small-12 columns center">' + 
 			'<input type="text" id="Veces" value="Veces" style="text-align:center; height:30px;">' + 
-        '</div>' 
+        '</div>' //
 
 $("#double_your_btc_right_section p:first").html(x); //se implementa el codigo en la seccion referenciada en el formato html
 
