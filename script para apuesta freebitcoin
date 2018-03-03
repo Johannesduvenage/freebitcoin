@@ -24,6 +24,8 @@ $('#double_your_btc_bet_lose').unbind();
 $('#double_your_btc_bet_win').unbind();
 var jugadas; var patron; var boton;
 var hacerParada = false; var balanceInicial; var balanceActual;
+var ApuestaGrande; var VecesDobles;
+
 function iniciar(){
 	boton = $("#double_your_btc_bet_hi_button"); //se casa el boton con el boton de apuesta alto
 	//var boton = $("#double_your_btc_bet_lo_button");
