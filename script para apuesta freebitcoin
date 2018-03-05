@@ -95,14 +95,17 @@ function validarPatronGrande(resultado){
         var longitud = patrones[i].length;
         var valor = jugadas.substr(jugadas.length - longitud);
         var patron = patrones[i].substr(0,longitud);
-        if (valor==patron){ //aqui un patron fue encontrado el patron
+		if (valor==patron){ //aqui un patron fue encontrado el patron
 			 parar();
+			 jugadas="";
+			 ApuestaGrandeActiva= false; 
 			 balanceActual =  (parseInt(parseFloat ($("#balance").html())*100000000));
 			 var inversion = balanceActual-balanceInicial;
 			 alert("Patrón encontrado: " + valor + "\nInversión:" + inversion + " satoshis" );
 			 return;
-		}
+		}		
 	}
+	$("#double_your_btc_2x").trigger("click");
 	boton.trigger("click");	       
 }
 
@@ -115,12 +118,14 @@ si es mayor o igual que veces se reinicia el script
 */
 function SiguienteApuesta(){
 	ApuestaGrandeActiva= true; 
+	jugadas="";
 	ApuestaGrande= $("#LaGrande").val();
 	//alert("valor de la apuesta grande: " + ApuestaGrande);		
 	$('#double_your_btc_stake').val(ApuestaGrande); //modifica el valor de la siguiente apuesta por el de LaGrande
 	patronGrande="V-";
 	for(var j = 0; j < $("#veces").val(); j++ ){
 		patronGrande= patronGrande + "R";
-		}
+		}	
+	boton.trigger("click");	
 	return;
 }
