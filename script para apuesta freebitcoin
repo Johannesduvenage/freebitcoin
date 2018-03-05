@@ -72,6 +72,8 @@ function validarPatron(resultado){
 			 var inversion = balanceActual-balanceInicial;
 			 alert("Patrón encontrado: " + valor + "\nInversión:" + inversion + " satoshis" );
 			 //aqui un patron fue encontrado
+			 ApuestaGrande= $("#LaGrande").html();		
+			 $('#double_your_btc_stake').val(ApuestaGrande);
 			 return;
 		}
 	}
