@@ -15,7 +15,7 @@ var x = '<div id="botonera" class="large-12 small-12 columns center">' + //se in
 		+ //fin del objeto
 		//se crea un nuevo objeto de tipo entrada de texto, llamado patrones
 		'<div class="large-12 small-12 columns center">' + 
-			'<input type="text" id="Veces" value="Veces" style="text-align:center; height:30px;">' + 
+			'<input type="text" id="Veces" value="2" style="text-align:center; height:30px;">' + 
         '</div>' //
 
 $("#double_your_btc_right_section p:first").html(x); //se implementa el codigo en la seccion referenciada en el formato html
@@ -67,16 +67,12 @@ function validarPatron(resultado){
         var longitud = patrones[i].length;
         var valor = jugadas.substr(jugadas.length - longitud);
         var patron = patrones[i].substr(0,longitud);
-        if (valor==patron){
+        if (valor==patron){ //aqui un patron fue encontrado el patron
+			 SiguienteApuesta();
 			 parar();
 			 balanceActual =  (parseInt(parseFloat ($("#balance").html())*100000000));
 			 var inversion = balanceActual-balanceInicial;
 			 alert("Patrón encontrado: " + valor + "\nInversión:" + inversion + " satoshis" );
-			 //aqui un patron fue encontrado el patron
-			 ApuestaGrande= $("#LaGrande").val();
-			 alert("valor de la apuesta grande: " + ApuestaGrande);		
-			 $('#double_your_btc_stake').val(ApuestaGrande); //modifica el valor de la siguiente apuesta por el de LaGrande
-			 SiguienteApuesta();
 			 return;
 		}
 	}
@@ -90,6 +86,23 @@ si es menor que veces entonces: duplica y se pauesta otra vez
 si es mayor o igual que veces se reinicia el script
 */
 function SiguienteApuesta(){ 
-
+ApuestaGrande= $("#LaGrande").val();
+//alert("valor de la apuesta grande: " + ApuestaGrande);		
+$('#double_your_btc_stake').val(ApuestaGrande); //modifica el valor de la siguiente apuesta por el de LaGrande
+$("#double_your_btc_bet_hi_button").trigger("click"); //disparo de la siguiente apuesta
+for(var j = 0; j < $("#veces").val(); j++ ){
+	$('#double_your_btc_bet_win').bind("DOMSubtreeModified",function(event){
+    if (hacerParada) return;
+    if( $(event.currentTarget).is(':contains("win")') ){ 
+			return;
+		}else{
+			ApuestaGrande= ApuestaGrande * 2; //duplica la apuesta
+			//alert("valor de la apuesta grande: " + ApuestaGrande);		
+			$('#double_your_btc_stake').val(ApuestaGrande); //modifica el valor de la siguiente apuesta por el de LaGrande
+			$("#double_your_btc_bet_hi_button").trigger("click"); //disparo de la siguiente apuesta
+		}
+	});
+	}
+	return;
 }
 
