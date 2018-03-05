@@ -10,7 +10,7 @@ var x = '<div id="botonera" class="large-12 small-12 columns center">' + //se in
 		+ //fin del objeto
 		//se crea un nuevo objeto de tipo entrada de texto, llamado patrones
 		'<div class="large-12 small-12 columns center">' + 
-			'<input type="text" id="LaGrande" value="LaGrande" style="text-align:center; height:30px;">' + 
+			'<input type="text" id="LaGrande" value="0.00000001" style="text-align:center; height:30px;">' + 
         '</div>' 
 		+ //fin del objeto
 		//se crea un nuevo objeto de tipo entrada de texto, llamado patrones
@@ -25,6 +25,7 @@ $('#double_your_btc_bet_win').unbind();
 var jugadas; var patron; var boton;
 var hacerParada = false; var balanceInicial; var balanceActual;
 var ApuestaGrande; var VecesDobles;
+$('#LaGrande').val(($("#balance").html()/20).toFixed(8));
 
 function iniciar(){
 	boton = $("#double_your_btc_bet_hi_button"); //se casa el boton con el boton de apuesta alto
@@ -71,8 +72,9 @@ function validarPatron(resultado){
 			 balanceActual =  (parseInt(parseFloat ($("#balance").html())*100000000));
 			 var inversion = balanceActual-balanceInicial;
 			 alert("Patrón encontrado: " + valor + "\nInversión:" + inversion + " satoshis" );
-			 //aqui un patron fue encontrado
-			 ApuestaGrande= $("#LaGrande").html();		
+			 //aqui un patron fue encontrado el patron
+			 ApuestaGrande= $("#LaGrande").val();
+			 alert("valor de la apuesta grande: " + ApuestaGrande);		
 			 $('#double_your_btc_stake').val(ApuestaGrande);
 			 return;
 		}
