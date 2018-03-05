@@ -75,10 +75,21 @@ function validarPatron(resultado){
 			 //aqui un patron fue encontrado el patron
 			 ApuestaGrande= $("#LaGrande").val();
 			 alert("valor de la apuesta grande: " + ApuestaGrande);		
-			 $('#double_your_btc_stake').val(ApuestaGrande);
+			 $('#double_your_btc_stake').val(ApuestaGrande); //modifica el valor de la siguiente apuesta por el de LaGrande
+			 SiguienteApuesta();
 			 return;
 		}
 	}
 	boton.trigger("click");        
+}
+/**
+/* aqui se debe usar la apuesta grande e intentar ganar
+si el resultado es victoria se reinicia el script
+si el resultado es derrota se comprueba cuantas veces se ha realizado
+si es menor que veces entonces: duplica y se pauesta otra vez
+si es mayor o igual que veces se reinicia el script
+*/
+function SiguienteApuesta(){ 
+
 }
 
