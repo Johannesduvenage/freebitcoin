@@ -24,7 +24,7 @@ $('#double_your_btc_bet_lose').unbind();
 $('#double_your_btc_bet_win').unbind();
 var jugadas; var patron; var boton;
 var hacerParada = false; var balanceInicial; var balanceActual;
-var ApuestaGrande; var VecesDobles;
+var ApuestaGrande; var patronGrande; var ApuestaGrandeActiva = false;
 $('#LaGrande').val(($("#balance").html()/20).toFixed(8));
 
 function iniciar(){
@@ -37,7 +37,7 @@ function iniciar(){
     $('#double_your_btc_stake').val('0.00000001');
     //$("#double_your_btc_bet_hi_button").trigger("click"); 
 	boton.trigger("click");
-    balanceInicial = ( parseInt(parseFloat ( $("#balance").html() ) * 100000000) );
+    balanceInicial = ( parseInt(parseFloat ( $("#balance").html() ) * 100000000) );	
 }
 
 function parar(){
@@ -48,14 +48,22 @@ function parar(){
 $('#double_your_btc_bet_lose').bind("DOMSubtreeModified",function(event){
     if (hacerParada) return;
 	if( $(event.currentTarget).is(':contains("lose")') ){ 
-		validarPatron("R");
+		if(ApuestaGrandeActiva){
+			validarPatronGrande("R");
+		}else{
+			validarPatron("R");
+		}
 	}
 });
 
 $('#double_your_btc_bet_win').bind("DOMSubtreeModified",function(event){
     if (hacerParada) return;
     if( $(event.currentTarget).is(':contains("win")') ){ 
-		validarPatron("V");
+		if(ApuestaGrandeActiva){
+			validarPatronGrande("V");
+		}else{
+			validarPatron("V");
+		}
 	}
 });
 
@@ -69,6 +77,25 @@ function validarPatron(resultado){
         var patron = patrones[i].substr(0,longitud);
         if (valor==patron){ //aqui un patron fue encontrado el patron
 			 SiguienteApuesta();
+			 //parar();
+			 //balanceActual =  (parseInt(parseFloat ($("#balance").html())*100000000));
+			 //var inversion = balanceActual-balanceInicial;
+			 //alert("Patrón encontrado: " + valor + "\nInversión:" + inversion + " satoshis" );
+			 return;
+		}
+	}
+	boton.trigger("click");	       
+}
+
+function validarPatronGrande(resultado){
+	jugadas+= resultado;
+	var cadena = patronGrande;
+    var patrones = cadena.split("-");
+    for (var i = 0; i < patrones.length; i++) {
+        var longitud = patrones[i].length;
+        var valor = jugadas.substr(jugadas.length - longitud);
+        var patron = patrones[i].substr(0,longitud);
+        if (valor==patron){ //aqui un patron fue encontrado el patron
 			 parar();
 			 balanceActual =  (parseInt(parseFloat ($("#balance").html())*100000000));
 			 var inversion = balanceActual-balanceInicial;
@@ -76,8 +103,9 @@ function validarPatron(resultado){
 			 return;
 		}
 	}
-	boton.trigger("click");        
+	boton.trigger("click");	       
 }
+
 /**
 /* aqui se debe usar la apuesta grande e intentar ganar
 si el resultado es victoria se reinicia el script
@@ -85,23 +113,14 @@ si el resultado es derrota se comprueba cuantas veces se ha realizado
 si es menor que veces entonces: duplica y se pauesta otra vez
 si es mayor o igual que veces se reinicia el script
 */
-function SiguienteApuesta(){ 
-ApuestaGrande= $("#LaGrande").val();
-//alert("valor de la apuesta grande: " + ApuestaGrande);		
-$('#double_your_btc_stake').val(ApuestaGrande); //modifica el valor de la siguiente apuesta por el de LaGrande
-$("#double_your_btc_bet_hi_button").trigger("click"); //disparo de la siguiente apuesta
-for(var j = 0; j < $("#veces").val(); j++ ){
-	$('#double_your_btc_bet_win').bind("DOMSubtreeModified",function(event){
-    if (hacerParada) return;
-    if( $(event.currentTarget).is(':contains("win")') ){ 
-			return;
-		}else{
-			$("#double_your_btc_2x").trigger("click"); //duplica la apuesta
-			//alert("valor de la apuesta grande: " + ApuestaGrande);		
-			$("#double_your_btc_bet_hi_button").trigger("click"); //disparo de la siguiente apuesta
+function SiguienteApuesta(){
+	ApuestaGrandeActiva= true; 
+	ApuestaGrande= $("#LaGrande").val();
+	//alert("valor de la apuesta grande: " + ApuestaGrande);		
+	$('#double_your_btc_stake').val(ApuestaGrande); //modifica el valor de la siguiente apuesta por el de LaGrande
+	patronGrande="V-";
+	for(var j = 0; j < $("#veces").val(); j++ ){
+		patronGrande= patronGrande + "R");
 		}
-	});
-	}
 	return;
 }
-
