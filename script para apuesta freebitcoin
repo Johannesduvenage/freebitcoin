@@ -123,9 +123,9 @@ function SiguienteApuesta(){
 	//alert("valor de la apuesta grande: " + ApuestaGrande);		
 	$('#double_your_btc_stake').val(ApuestaGrande); //modifica el valor de la siguiente apuesta por el de LaGrande
 	patronGrande="V-";
-	for(var j = 0; j < $("#veces").val(); j++ ){
+	for(var j = 0; j < $("#Veces").val(); j++ ){
 		patronGrande= patronGrande + "R";
-		}	
+		}		
 	boton.trigger("click");	
 	return;
 }
