@@ -96,9 +96,8 @@ for(var j = 0; j < $("#veces").val(); j++ ){
     if( $(event.currentTarget).is(':contains("win")') ){ 
 			return;
 		}else{
-			ApuestaGrande= ApuestaGrande * 2; //duplica la apuesta
+			$("#double_your_btc_2x").trigger("click"); //duplica la apuesta
 			//alert("valor de la apuesta grande: " + ApuestaGrande);		
-			$('#double_your_btc_stake').val(ApuestaGrande); //modifica el valor de la siguiente apuesta por el de LaGrande
 			$("#double_your_btc_bet_hi_button").trigger("click"); //disparo de la siguiente apuesta
 		}
 	});
