@@ -128,4 +128,4 @@ function SiguienteApuesta(){
 		}		
 	boton.trigger("click");	
 	return;
-}
+} //funciona
